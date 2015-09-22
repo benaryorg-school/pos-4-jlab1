@@ -9,7 +9,7 @@ public class Worker extends Thread
 		FINISHED,
 	}
 
-	private WorkerState state;
+	private volatile WorkerState state;
 
 	public Worker()
 	{
