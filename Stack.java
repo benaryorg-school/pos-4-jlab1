@@ -84,6 +84,7 @@ class Consumer extends Thread
 			}
 			catch(InterruptedException ex)
 			{
+				ex.printStackTrace();
 			}
 			System.out.println("Consumer: synchronized");
 			synchronized(this.stack)
@@ -104,6 +105,7 @@ class Consumer extends Thread
 					}
 					catch(InterruptedException e2)
 					{
+						e2.printStackTrace();
 					}
 				}
 			}
@@ -132,6 +134,7 @@ class Producer extends Thread
 			}
 			catch(InterruptedException ex)
 			{
+				ex.printStackTrace();
 			}
 			System.out.println("Producer: synchronized");
 			synchronized(this.stack)
@@ -152,6 +155,7 @@ class Producer extends Thread
 					}
 					catch(InterruptedException e2)
 					{
+						e2.printStackTrace();
 					}
 				}
 			}
