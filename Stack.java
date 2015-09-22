@@ -1,32 +1,54 @@
-public class Stack<E> extends java.util.ArrayDeque<E>
+public class Stack<E>
 {
-	public static final long serialVersionUID=0L;
-	private int len;
+	private E[] arr;
+	private int tos;
 	
+	@SuppressWarnings("unchecked")
 	public Stack(int len)
 	{
-		this.len=len;
+		this.arr=(E[])new Object[len];
+		this.tos=0;
 	}
 
-	@Override
 	public void push(E item)
 	{
-		if(this.size()>=this.len)
+		if(tos>=arr.length)
 		{
 			throw new FullException();
 		}
-		super.push(item);
+		this.arr[this.tos++]=item;
+	}
+
+	public E pop()
+	{
+		if(tos<=0)
+		{
+			throw new EmptyException();
+		}
+		E var=this.arr[--this.tos];
+		this.arr[this.tos]=null;
+		return var;
+	}
+
+	public String toString()
+	{
+		return java.util.Arrays.toString(this.arr);
 	}
 
 	public static void main(String... args)
 	{
-		Stack<String> stack=new Stack<String>(1);
+		Stack<String> stack=new Stack<String>(2);
 		new Consumer(stack).start();
 		new Producer(stack).start();
 	}
 }
 
 class FullException extends RuntimeException
+{
+	public static final long serialVersionUID=0L;
+}
+
+class EmptyException extends RuntimeException
 {
 	public static final long serialVersionUID=0L;
 }
@@ -63,7 +85,7 @@ class Consumer extends Thread
 					System.out.println("Stack: "+this.stack);
 					this.stack.notifyAll();
 				}
-				catch(java.util.NoSuchElementException e1)
+				catch(EmptyException e1)
 				{
 					try
 					{
