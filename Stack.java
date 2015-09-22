@@ -12,7 +12,7 @@ public class Stack<E>
 
 	public void push(E item)
 	{
-		if(tos>=arr.length)
+		if(this.isFull())
 		{
 			throw new FullException();
 		}
@@ -21,13 +21,23 @@ public class Stack<E>
 
 	public E pop()
 	{
-		if(tos<=0)
+		if(this.isEmpty())
 		{
 			throw new EmptyException();
 		}
 		E var=this.arr[--this.tos];
 		this.arr[this.tos]=null;
 		return var;
+	}
+
+	public boolean isFull()
+	{
+		return this.tos>=this.arr.length;
+	}
+
+	public boolean isEmpty()
+	{
+		return this.tos<=0;
 	}
 
 	public String toString()
